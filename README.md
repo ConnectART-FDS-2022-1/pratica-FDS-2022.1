@@ -17,9 +17,8 @@ ConnectART grew out of a need for students to connect with each other, matching 
 - Ricardo Costa 
 
 ### Product Scope
-The will be able to:
+The user will be able to:
 - Create account
 - Scroll through feed
 - Post a story
-- Filter feed based on type of art/specific artwork
 - Add artwork to database
