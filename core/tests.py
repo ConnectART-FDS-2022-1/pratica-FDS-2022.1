@@ -10,7 +10,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 class TestConnectART(LiveServerTestCase):
 
   def testlogin(self):
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     driver.get(self.live_server_url + '/register/')
 
