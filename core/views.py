@@ -56,10 +56,23 @@ def registerSubmit(request):
   return redirect('/register/')
 
 
+@login_required(login_url = '/login/')
 def submitLogout(request):
   logout(request)
   return redirect('/')
 
+
+@login_required(login_url = '/login/')
+def deleteAccount(request):
+  user = request.user
+  user_to_del = User.objects.get(username = user)
+
+  try:
+    user_to_del.delete()
+  except:
+    messages.error('Couldn\'t delete user.')
+
+  return redirect('/profile/edit/')
 
 @login_required(login_url = '/login/')
 def viewPersonalProfile(request):

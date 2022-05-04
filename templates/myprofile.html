@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %} 
+<title>ConnectART | Perfil</title>
+{% endblock %}
+
 {% block body %}
 
 {% for item in user %}
@@ -7,5 +11,7 @@
 {% endfor %}
 
 <a href="/logout">logout</a>
+
+<a id="delAccount" style="color: red;" href="/deleteuser">DELETAR CONTA</a>
 
 {% endblock %}
