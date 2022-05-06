@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'dSUWHDIUbuowebr788)(*%*¨&&*#%*(*&&**(*()*()sdieu3iwl2orfr8a5%@x^cx+gp4ztupag8+f6-!_^7#ispg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://connect-art.herokuapp.com/', '*']
+ALLOWED_HOSTS = ['https://connect-art.herokuapp.com/']
 
 
 # Application definition
