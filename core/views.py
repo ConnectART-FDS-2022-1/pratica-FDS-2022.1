@@ -64,13 +64,23 @@ def submitLogout(request):
 
 @login_required(login_url = '/login/')
 def deleteAccount(request):
-  user = request.user
-  user_to_del = User.objects.get(username = user)
+  if request.POST:
+    user = request.user
+    user_to_del = User.objects.get(username = user)
 
-  try:
-    user_to_del.delete()
-  except:
-    messages.error('Couldn\'t delete user.')
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    passw_confirm = request.POST.get('confirmPassw')
+
+    if password == passw_confirm:
+      check = authenticate(username = username, password = password)
+
+      if check and check == user_to_del:
+        try:
+          user_to_del.delete()
+          messages.success(request, 'User successfully deleted.')
+        except:
+          messages.error(request, 'Couldn\'t delete user.')
 
   return redirect('/profile/edit/')
 
@@ -80,3 +90,6 @@ def viewPersonalProfile(request):
   user_info = User.objects.filter(username = user)
   return render(request, 'myprofile.html', {'user' : user_info})
   
+@login_required(login_url='/login/')
+def deletePage(request):
+  return render(request, 'deleteacc.html')

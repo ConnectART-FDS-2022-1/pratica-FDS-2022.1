@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>ConnectART | Excluir conta</title>
+{% endblock %}
+
+{% block body %}
+<form action="/deleteuser" method="POST"> {% csrf_token %}
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" minlength="8" placeholder="Senha">
+  <input type="password" name="confirmPassw" minlength="8" placeholder="Confirme a senha">
+  <br>
+  <button style="color: red;" name="submitBtn" type="submit">Deletar</button>
+</form>
+{% endblock %}

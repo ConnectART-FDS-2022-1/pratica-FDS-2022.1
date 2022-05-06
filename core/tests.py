@@ -95,6 +95,18 @@ class TestConnectART(LiveServerTestCase):
     delBtn = driver.find_element_by_id('delAccount')
     delBtn.click()
 
+    assert "ConnectART | Excluir conta" in driver.title
+
+    username = driver.find_element_by_name('username')
+    password = driver.find_element_by_name('password')
+    passw_conf = driver.find_element_by_name('confirmPassw')
+    submit = driver.find_element_by_name('submitBtn')
+
+    username.send_keys('luis')
+    password.send_keys('senhalonga123')
+    passw_conf.send_keys('senhalonga123')
+    submit.click()
+
     assert "ConnectART | Login" in driver.title
 
     driver.close()
