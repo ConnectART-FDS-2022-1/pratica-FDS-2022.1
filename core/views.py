@@ -10,16 +10,16 @@ def index(request):
 
 
 def loginPage(request):
-  return render(request, 'login.html')
+  return render(request, 'logintest.html')
 
 
 def registerPage(request):
-  return render(request, 'register.html')
+  return render(request, 'registertest.html')
 
 
 @login_required(login_url='/login/')
 def deletePage(request):
-  return render(request, 'deleteacc.html')
+  return render(request, 'deleteacctest.html')
 
 
 def loginSubmit(request):

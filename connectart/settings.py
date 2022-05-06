@@ -27,7 +27,7 @@ SECRET_KEY = 'dSUWHDIUbuowebr788)(*%*¨&&*#%*(*&&**(*()*()sdieu3iwl2orfr8a5%@x^c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://connect-art.herokuapp.com/']
+ALLOWED_HOSTS = ['https://connect-art.herokuapp.com/', '*']
 
 
 # Application definition

@@ -17,9 +17,9 @@ class TestConnectART(LiveServerTestCase):
 
     username = driver.find_element_by_name("username")
     email = driver.find_element_by_name('email')
-    password = driver.find_element_by_class_name('password')
-    passw_conf = driver.find_element_by_class_name('confirmPassw')
-    submit = driver.find_element_by_class_name('submitBtn')
+    password = driver.find_element_by_name('password')
+    passw_conf = driver.find_element_by_name('confirmPassw')
+    submit = driver.find_element_by_name('submitBtn')
 
     username.send_keys('luis')
     email.send_keys('luiscruz@gmail.br')
@@ -61,7 +61,7 @@ class TestConnectART(LiveServerTestCase):
     password.send_keys('senhalonga123')
     submit.click()
 
-    assert "ConnectART | Perfil" in driver.title
+    assert "ConnectART | Profile" in driver.title
 
   def testDelAccount(self):
     options = webdriver.ChromeOptions()
@@ -93,12 +93,12 @@ class TestConnectART(LiveServerTestCase):
     password.send_keys('senhalonga123')
     submit.click()
 
-    assert "ConnectART | Perfil" in driver.title
+    assert "ConnectART | Profile" in driver.title
 
     delBtn = driver.find_element_by_id('delAccount')
     delBtn.click()
 
-    assert "ConnectART | Excluir conta" in driver.title
+    assert "ConnectART | Delete account" in driver.title
 
     username = driver.find_element_by_name('username')
     password = driver.find_element_by_name('password')
