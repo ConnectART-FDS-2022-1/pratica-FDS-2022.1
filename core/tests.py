@@ -2,6 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import time
 
 
 class TestConnectART(LiveServerTestCase):
@@ -14,11 +15,11 @@ class TestConnectART(LiveServerTestCase):
 
     driver.get(self.live_server_url + '/register/')
 
-    username = driver.find_element_by_name('username')
+    username = driver.find_element_by_name("username")
     email = driver.find_element_by_name('email')
-    password = driver.find_element_by_name('password')
-    passw_conf = driver.find_element_by_name('confirmPassw')
-    submit = driver.find_element_by_name('submitBtn')
+    password = driver.find_element_by_class_name('password')
+    passw_conf = driver.find_element_by_class_name('confirmPassw')
+    submit = driver.find_element_by_class_name('submitBtn')
 
     username.send_keys('luis')
     email.send_keys('luiscruz@gmail.br')
@@ -27,6 +28,8 @@ class TestConnectART(LiveServerTestCase):
     submit.click()
 
     assert "ConnectART | Login" in driver.title
+
+    driver.close()
 
   def testLogin(self):
     options = webdriver.ChromeOptions()

@@ -13,6 +13,15 @@ def loginPage(request):
   return render(request, 'login.html')
 
 
+def registerPage(request):
+  return render(request, 'register.html')
+
+
+@login_required(login_url='/login/')
+def deletePage(request):
+  return render(request, 'deleteacc.html')
+
+
 def loginSubmit(request):
   if request.POST:
     username = request.POST.get('username')
@@ -31,10 +40,6 @@ def loginSubmit(request):
 
     messages.error(request, 'Algo deu errado, tente novamente!')
     return redirect('/login/')
-
-
-def registerPage(request):
-  return render(request, 'register.html')
 
 
 def registerSubmit(request):
@@ -75,14 +80,22 @@ def deleteAccount(request):
     if password == passw_confirm:
       check = authenticate(username = username, password = password)
 
-      if check and check == user_to_del:
+      if check and (check == user_to_del):
         try:
           user_to_del.delete()
           messages.success(request, 'User successfully deleted.')
+          return redirect('/')
         except:
           messages.error(request, 'Couldn\'t delete user.')
+          return redirect('/profile/edit/')
 
-  return redirect('/profile/edit/')
+      else:
+        messages.error(request, 'Couldn\'t delete user.')
+        return redirect('/profile/edit/')
+
+  messages.error(request, 'Passwords don\'t match.')
+  return redirect('/profile/delete/')
+
 
 @login_required(login_url = '/login/')
 def viewPersonalProfile(request):
@@ -90,6 +103,3 @@ def viewPersonalProfile(request):
   user_info = User.objects.filter(username = user)
   return render(request, 'myprofile.html', {'user' : user_info})
   
-@login_required(login_url='/login/')
-def deletePage(request):
-  return render(request, 'deleteacc.html')

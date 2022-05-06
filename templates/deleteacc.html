@@ -1,15 +1,171 @@
 {% extends 'base.html' %}
+        
+      {% block head %}
+        <title>ConnectART | Delete account</title>
+        <style>
+                * {
+                        box-sizing: border-box;
+                }
+                body {
+                        font-family: 'Josefin Sans', sans-serif;
+                        font-size: 30px;
+                        font-weight: 170;
+                        color: whitesmoke;
+                        background-color: #343E47;
+                }
+                #logo {
+                        color: white;
+                        padding: 5px;
+                        text-align: center;
+                        margin-bottom: 10px;
+                        margin: 1px;
+                        position: relative;
+                        top: 0;
+                }
+                .relative .absolute .form-group {
+                        padding-bottom: 10px;
+                        padding-top: 10px;
+                }
+                .relative .absolute .form-group h2 {
+                        padding-bottom: 10px;
+                        padding-top: 10px;
+                }
+                .relative .absolute .form-group input {
+                        padding: 10px;
+                        width: 100%;
+                        color:aqua;
+                }
+                .relative .absolute .form-group label{
+                        display:blocks;
+                }
+                .box{
+                        width: 80%;
+                        margin: auto;
+                }
+                .relative {
+                        position: relative;
+                        background-color: #343E47;
+                        border: 3px solid white;
+                        text-align: 100px;
+                        height: 400px;
+                        padding: 50px;
+                        border-radius: 20px;
+                }
+                .relative .absolute {
+                        position: absolute;
+                        bottom: 0;
+                }
+                .relative .absolute h4 {
+                        margin: 0;
+                }
+                .relative .absolute .button {
+                        background: red;
+                        color: #eee;
+                        border-radius: 10px;
+                        padding: 15px;
+                        position: relative;
+                        bottom: 10px;
+                        right: -320px;
+                        left: center;
+                        margin: 10px;
+                        border: none;
+                }
+                .relative .absolute h3 {
+                        background: white;
+                        color: #343E47;
+                        text-align: center;
+                        border-radius: 10px;
+                        position: relative;
+                        bottom: 25px;
+                        right: 10px;
+                        left: 8px;
+                        margin: 10px;
+                        border: none;
+                        block-size: 40px;
+                }
+                .relative .absolute .nome {
+                        background: white;
+                        color: #eee;
+                        border-radius: 10px;
+                        position: relative;
+                        bottom: 10px;
+                        right: center;
+                        left: center;
+                        margin: 10px;
+                        border: none;
+                }
+                .relative .absolute .senha {
+                        background: white;
+                        color: #eee;
+                        border-radius: 10px;
+                        position: relative;
+                        bottom: 10px;
+                        right: center;
+                        left: center;
+                        margin: 10px;
+                        border: none;
+                }
+                .relative .absolute .senhaconfirmacao {
+                        background: white;
+                        color: #eee;
+                        border-radius: 10px;
+                        position: relative;
+                        bottom: 10px;
+                        right: center;
+                        left: center;
+                        margin: 10px;
+                        border: none;
+                }
+                .main-footer ul a:hover {
+                        color: white;
+                }
+                .main-footer ul a:visited {
+                        color: #D2785B;
+                }
+                .main-footer ul {
+                        list-style: none;
+                        text-align: center;
+                }
+                .main-footer a {
+                        text-decoration:dashed;
+                        color: #D2785B;
+                }
+        </style>
 
-{% block head %}
-<title>ConnectART | Excluir conta</title>
-{% endblock %}
+        {% endblock %}
 
-{% block body %}
-<form action="/deleteuser" method="POST"> {% csrf_token %}
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" minlength="8" placeholder="Senha">
-  <input type="password" name="confirmPassw" minlength="8" placeholder="Confirme a senha">
-  <br>
-  <button style="color: red;" name="submitBtn" type="submit">Deletar</button>
-</form>
-{% endblock %}
+        {% block body %}
+                <nav id="logo">
+                  {% load static %}
+                        <h1><img src="{% static 'images/logo.png' %}" alt="logo"  width="400" heigh="100" /></h1>
+                </nav>
+        </div>
+        
+        <div class="box relative">
+                <div class="absolute">
+                        <h4>
+                                <div class="box">
+                                        <form action="/deleteuser" method="POST"> {% csrf_token %}
+                                                <div class="form-group"> 
+                                                        <h3>Delete your account</h3>
+                                                       
+                                                        <label>Username:</label>
+                                                        <input class="nome"type="text" name="username" placeholder="Username" pattern="+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
+                                                        
+                                                        <label>Password:</label>
+                                                        <input class="senha" type="password" name="password" minlength="8" placeholder="Password">
+
+                                                        <label>Password confirmation:</label>
+                                                        <input class="senhaconfirmacao" type="password" name="confirmPassw" minlength="8" placeholder="Confirm password">
+                                                        <br>
+                                                        <button class="button" name="submitBtn" type="submit"> <h4>Delete</h4></button>
+                                                        
+                                                </div>
+                        
+                                        </form>
+                                </div>
+                        </h4>
+                </div>
+        </div>
+
+        {% endblock %}
