@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %} 
+<title>ConnectART | Profile</title>
+{% endblock %}
+
 {% block body %}
 
 {% for item in user %}
@@ -7,5 +11,11 @@
 {% endfor %}
 
 <a href="/logout">logout</a>
+
+<a id="delAccount" style="color: red;" href="/profile/delete/">DELETE ACCOUNT</a>
+
+{% for message in messages %}
+  <p><strong>{{ message }}</strong></p>
+{% endfor %}
 
 {% endblock %}
