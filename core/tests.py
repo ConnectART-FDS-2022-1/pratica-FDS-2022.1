@@ -2,6 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import time
 
 
 class TestConnectART(LiveServerTestCase):
@@ -14,7 +15,7 @@ class TestConnectART(LiveServerTestCase):
 
     driver.get(self.live_server_url + '/register/')
 
-    username = driver.find_element_by_name('username')
+    username = driver.find_element_by_name("username")
     email = driver.find_element_by_name('email')
     password = driver.find_element_by_name('password')
     passw_conf = driver.find_element_by_name('confirmPassw')
@@ -27,6 +28,8 @@ class TestConnectART(LiveServerTestCase):
     submit.click()
 
     assert "ConnectART | Login" in driver.title
+
+    driver.close()
 
   def testLogin(self):
     options = webdriver.ChromeOptions()
@@ -58,7 +61,7 @@ class TestConnectART(LiveServerTestCase):
     password.send_keys('senhalonga123')
     submit.click()
 
-    assert "ConnectART | Perfil" in driver.title
+    assert "ConnectART | Profile" in driver.title
 
   def testDelAccount(self):
     options = webdriver.ChromeOptions()
@@ -90,10 +93,22 @@ class TestConnectART(LiveServerTestCase):
     password.send_keys('senhalonga123')
     submit.click()
 
-    assert "ConnectART | Perfil" in driver.title
+    assert "ConnectART | Profile" in driver.title
 
     delBtn = driver.find_element_by_id('delAccount')
     delBtn.click()
+
+    assert "ConnectART | Delete account" in driver.title
+
+    username = driver.find_element_by_name('username')
+    password = driver.find_element_by_name('password')
+    passw_conf = driver.find_element_by_name('confirmPassw')
+    submit = driver.find_element_by_name('submitBtn')
+
+    username.send_keys('luis')
+    password.send_keys('senhalonga123')
+    passw_conf.send_keys('senhalonga123')
+    submit.click()
 
     assert "ConnectART | Login" in driver.title
 

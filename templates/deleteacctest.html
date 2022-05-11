@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>ConnectART | Delete account</title>
+{% endblock %}
+
+{% block body %}
+<form action="/deleteuser" method="POST"> {% csrf_token %}
+  <input class="nome"type="text" name="username" placeholder="Username">
+  <input type="password" name="password" minlength="8" placeholder="Password">
+  <input type="password" name="confirmPassw" minlength="8" placeholder="Confirm password">
+  <br>
+  <button class="button" name="submitBtn" type="submit">Delete</button>
+</form>
+
+{% for message in messages %}
+  <p><strong>{{ message }}</strong></p>
+{% endfor %}
+{% endblock %}

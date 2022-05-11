@@ -26,5 +26,6 @@ urlpatterns = [
     path('register/', views.registerPage),
     path('register/submit', views.registerSubmit),
     path('profile/edit/', views.viewPersonalProfile),
-    path('deleteuser/', views.deleteAccount),
+    path('profile/delete/', views.deletePage),
+    path('deleteuser', views.deleteAccount),
 ]
