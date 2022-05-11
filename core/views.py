@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User 
 from django.contrib import messages 
+from controller import *
 
 
 def index(request):
@@ -21,44 +22,33 @@ def registerPage(request):
 def deletePage(request):
   return render(request, 'deleteacctest.html')
 
+@login_required(login_url = '/login/')
+def viewPersonalProfile(request):
+  user = request.user
+  user_info = User.objects.filter(username = user)
+  return render(request, 'myprofile.html', {'user' : user_info})
+
 
 def loginSubmit(request):
-  if request.POST:
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+  loginObj = Login
+  logged = loginObj.loginSubmit(request)
 
-    if username != '' and password != '':
+  if logged:
+    return redirect('/profile/edit/')
 
-      try:
-        user = authenticate(username = username, password = password)
-        if user:
-          login(request, user)
-          return redirect('/profile/edit/')
-
-      except:
-        pass
-
+  else:
     messages.error(request, 'Algo deu errado, tente novamente!')
     return redirect('/login/')
 
 
 def registerSubmit(request):
-  if request.POST:
-    username = request.POST.get('username')
-    email = request.POST.get('email')
-    password = request.POST.get('password')
-    passw_confirm = request.POST.get('confirmPassw')
-
-    if (not (User.objects.filter(username = username) or User.objects.filter(email = email))) and password == passw_confirm:
-
-      try:
-        User.objects.create_user(username, email, password)
-        return redirect('/login/')
-
-      except:
-        messages.error(request, 'Algo deu errado, tente novamente!')
-
-  return redirect('/register/')
+  registerObj = Register
+  registered = registerObj.registerSubmit(request)
+  if registered:
+    return redirect('/login/')
+  else:
+    messages.error(request, 'Algo deu errado, tente novamente!')
+    return redirect('/register/')
 
 
 @login_required(login_url = '/login/')
@@ -69,37 +59,12 @@ def submitLogout(request):
 
 @login_required(login_url = '/login/')
 def deleteAccount(request):
-  if request.POST:
-    user = request.user
-    user_to_del = User.objects.get(username = user)
-
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    passw_confirm = request.POST.get('confirmPassw')
-
-    if password == passw_confirm:
-      check = authenticate(username = username, password = password)
-
-      if check and (check == user_to_del):
-        try:
-          user_to_del.delete()
-          messages.success(request, 'User successfully deleted.')
-          return redirect('/')
-        except:
-          messages.error(request, 'Couldn\'t delete user.')
-          return redirect('/profile/edit/')
-
-      else:
-        messages.error(request, 'Couldn\'t delete user.')
-        return redirect('/profile/edit/')
-
-  messages.error(request, 'Passwords don\'t match.')
-  return redirect('/profile/delete/')
-
-
-@login_required(login_url = '/login/')
-def viewPersonalProfile(request):
-  user = request.user
-  user_info = User.objects.filter(username = user)
-  return render(request, 'myprofile.html', {'user' : user_info})
+  deletedObj = Deletion
+  deleted = deletedObj.deleteAcc(request)
+  if deleted:
+    messages.success(request, 'User successfully deleted.')
+    return redirect('/')
+  else:
+    messages.error(request, 'Couldn\'t delete user.')
+    return redirect('/profile/edit/')
   
