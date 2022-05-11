@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User 
 from django.contrib import messages 
-from controller import *
+from core.controller import *
 
 
 def index(request):
@@ -22,6 +22,7 @@ def registerPage(request):
 def deletePage(request):
   return render(request, 'deleteacctest.html')
 
+
 @login_required(login_url = '/login/')
 def viewPersonalProfile(request):
   user = request.user
@@ -30,23 +31,35 @@ def viewPersonalProfile(request):
 
 
 def loginSubmit(request):
-  loginObj = Login
-  logged = loginObj.loginSubmit(request)
+  if request.POST:
+    username = request.POST.get('username')
+    password = request.POST.get('password')
 
-  if logged:
-    return redirect('/profile/edit/')
+    if username != '' and password != '': 
+      loginObj = Login()
+      logged = loginObj.loginSubmit(username, password, request)
 
-  else:
+      if logged:
+        return redirect('/profile/edit/')
+
     messages.error(request, 'Algo deu errado, tente novamente!')
     return redirect('/login/')
 
 
 def registerSubmit(request):
-  registerObj = Register
-  registered = registerObj.registerSubmit(request)
-  if registered:
-    return redirect('/login/')
-  else:
+  if request.POST:
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    passw_confirm = request.POST.get('confirmPassw')
+
+    if (not (User.objects.filter(username = username) or User.objects.filter(email = email))) and password == passw_confirm:
+      registerObj = Register()
+      registered = registerObj.registerSubmit(username, email, password)
+
+      if registered:
+        return redirect('/login/')
+
     messages.error(request, 'Algo deu errado, tente novamente!')
     return redirect('/register/')
 
@@ -59,12 +72,25 @@ def submitLogout(request):
 
 @login_required(login_url = '/login/')
 def deleteAccount(request):
-  deletedObj = Deletion
-  deleted = deletedObj.deleteAcc(request)
-  if deleted:
-    messages.success(request, 'User successfully deleted.')
-    return redirect('/')
-  else:
+  if request.POST:
+    user = request.user
+    user_to_del = User.objects.get(username = user)
+
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    passw_confirm = request.POST.get('confirmPassw')
+
+    if password == passw_confirm:
+      check = authenticate(username = username, password = password)
+
+      if check and (check == user_to_del):
+        deleteObj = Deletion()
+        deleted = deleteObj.deleteAcc(user_to_del)
+
+        if deleted:
+          messages.success(request, 'User successfully deleted.')
+          return redirect('/')
+
     messages.error(request, 'Couldn\'t delete user.')
     return redirect('/profile/edit/')
   
