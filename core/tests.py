@@ -112,3 +112,6 @@ class TestConnectART(LiveServerTestCase):
     assert "ConnectART | Login" in driver.title
 
     driver.close()
+
+  def testPostToFeed(self):
+    pass

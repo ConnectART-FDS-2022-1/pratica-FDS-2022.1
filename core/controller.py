@@ -32,3 +32,9 @@ class Deletion:
 
     except:
       return False
+
+
+class PostHandler:
+
+  def createPost(self, title, body):
+    pass

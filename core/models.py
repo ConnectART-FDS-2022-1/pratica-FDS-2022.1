@@ -12,6 +12,7 @@ class Profile(models.Model):
 class Post(models.Model):
   created_by = models.ForeignKey(User, on_delete=models.CASCADE)
   date_created = models.DateTimeField(auto_now=True)
+  title = models.CharField(null=False, max_length=100, default='Post title')
   body = models.TextField(null=False)
 
   class Meta:

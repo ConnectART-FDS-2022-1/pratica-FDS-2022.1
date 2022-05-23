@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>ConnectART | Postar</title>
+
+{% endblock %}
+
+{% block body %}
+<h1>Criar postagem</h1>
+
+<form action="/createpost/submit" method="POST"> {% csrf_token %}
+  <input type="text" name="title" placeholder="title" maxlength="100">
+  <br>
+  <textarea name="body" placeholder="body" id="" cols="30" rows="10"></textarea>
+  <button type="submit">Postar</button>
+</form>
+
+{% endblock %}

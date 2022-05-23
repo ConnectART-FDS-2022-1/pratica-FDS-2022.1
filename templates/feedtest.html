@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>ConnectART | Feed</title>
+
+{% endblock %}
+
+{% block body %}
+
+<a href="/createpost/">
+  <h3>adicionar postagem</h3>
+</a>
+
+<a href="/profile/edit">
+  <h3>ver perfil</h3>
+</a>
+
+{% if posts|length < 1 %}
+<h4>No posts to show</h4>
+{% else %}
+
+{% for post in posts %}
+  <div>
+    <h3 name="post-title">{{ post.title }}</h3>
+    <div name="post-body">{{ post.body }}</div>
+  </div>
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

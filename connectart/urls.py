@@ -28,4 +28,7 @@ urlpatterns = [
     path('profile/edit/', views.viewPersonalProfile),
     path('profile/delete/', views.deletePage),
     path('deleteuser', views.deleteAccount),
+    path('createpost/', views.createPostPage),
+    path('createpost/submit', views.createPostSubmit),
+    path('feed/', views.feedPage),
 ]

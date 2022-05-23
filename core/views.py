@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User 
-from django.contrib import messages 
+from django.contrib import messages
+from core.models import Post, Profile
 from core.controller import *
 
 
@@ -93,4 +94,28 @@ def deleteAccount(request):
 
     messages.error(request, 'Couldn\'t delete user.')
     return redirect('/profile/edit/')
+
+
+@login_required(login_url='/login/')
+def feedPage(request):
+  posts = Post.objects.all()
+  return render(request, 'feedtest.html', {'posts': posts})
+
+
+@login_required(login_url='/login/')
+def createPostPage(request):
+  return render(request, 'createposttest.html')
   
+
+@login_required(login_url='/login/')
+def createPostSubmit(request):
+  if request.POST:
+    title = request.POST.get('title')
+    body = request.POST.get('body')
+
+    try:
+      Post.objects.create(title = title, body = body, created_by = request.user)
+    except:
+      messages.error(request, 'Houve um erro ao fazer sua postagem.')
+
+  return redirect('/feed/')
