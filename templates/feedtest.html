@@ -21,12 +21,19 @@
 {% else %}
 
 {% for post in posts %}
-  <div>
+  <div style="margin-bottom: 50px;">
+    <p name="post-date">{{ post.getPostDate }}</p>
+    <p name="post-creator">{{ post.created_by.username }}</p>
     <h3 name="post-title">{{ post.title }}</h3>
     <div name="post-body">{{ post.body }}</div>
   </div>
+
 {% endfor %}
 
 {% endif %}
+
+{% for message in messages %}
+  <p><strong>{{ message }}</strong></p>
+{% endfor %}
 
 {% endblock %}

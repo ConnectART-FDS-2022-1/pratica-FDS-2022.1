@@ -5,6 +5,22 @@ from core.models import Post
 
 class UserController:
 
+  def __checkExistingEmail(self, email):
+    if User.objects.filter(email = email):
+      return True
+
+    else:
+      return False
+
+
+  def __checkExistingUsername(self, username):
+    if User.objects.filter(username = username):
+      return True
+
+    else:
+      return False
+
+
   def loginUser(self, username, password, req):
     user = authenticate(username = username, password = password)
     if user:
@@ -13,20 +29,33 @@ class UserController:
 
     return False
 
+
   def createUser(self, username, email, password):
-    try:
-      User.objects.create_user(username, email, password)
-      return True
-    
-    except:
+    if not self.__checkExistingEmail(email) and not self.__checkExistingUsername(username):
+      try:
+        User.objects.create_user(username, email, password)
+        return True
+      
+      except:
+        return False
+
+    else:
       return False
 
-  def deleteUser(self, user):
-    try:
-      user.delete()
-      return True
 
-    except:
+  def deleteUser(self, username, password, req):
+    user_to_del = authenticate(username = username, password = password)
+    logged_user = req.user
+
+    if user_to_del and (user_to_del == logged_user):
+      try:
+        user_to_del.delete()
+        return True
+
+      except:
+        return False
+
+    else:
       return False
 
 

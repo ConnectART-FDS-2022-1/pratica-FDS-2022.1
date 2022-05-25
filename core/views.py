@@ -53,8 +53,8 @@ def registerSubmit(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
     passw_confirm = request.POST.get('confirmPassw')
-
-    if (not (User.objects.filter(username = username) or User.objects.filter(email = email))) and password == passw_confirm:
+    
+    if password == passw_confirm:
       userObj = UserController()
       registered = userObj.createUser(username, email, password)
 
@@ -74,23 +74,18 @@ def submitLogout(request):
 @login_required(login_url = '/login/')
 def deleteAccount(request):
   if request.POST:
-    user = request.user
-    user_to_del = User.objects.get(username = user)
-
     username = request.POST.get('username')
     password = request.POST.get('password')
     passw_confirm = request.POST.get('confirmPassw')
 
     if password == passw_confirm:
-      check = authenticate(username = username, password = password)
 
-      if check and (check == user_to_del):
-        userObj = UserController()
-        deleted = userObj.deleteUser(user_to_del)
+      userObj = UserController()
+      deleted = userObj.deleteUser(username, password, request)
 
-        if deleted:
-          messages.success(request, 'User successfully deleted.')
-          return redirect('/')
+      if deleted:
+        messages.success(request, 'User successfully deleted.')
+        return redirect('/')
 
     messages.error(request, 'Couldn\'t delete user.')
     return redirect('/profile/edit/')
@@ -100,7 +95,7 @@ def deleteAccount(request):
 def feedPage(request):
   postObj = PostController()
   posts = postObj.getAllPosts()
-  
+
   return render(request, 'feedtest.html', {'posts': posts})
 
 
