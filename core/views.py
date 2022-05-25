@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User 
 from django.contrib import messages
 from core.models import Post, Profile
-from core.controller import *
+from core.controller import UserController, PostController
 
 
 def index(request):
@@ -37,8 +37,8 @@ def loginSubmit(request):
     password = request.POST.get('password')
 
     if username != '' and password != '': 
-      loginObj = Login()
-      logged = loginObj.loginSubmit(username, password, request)
+      userObj = UserController()
+      logged = userObj.loginUser(username, password, request)
 
       if logged:
         return redirect('/profile/edit/')
@@ -55,8 +55,8 @@ def registerSubmit(request):
     passw_confirm = request.POST.get('confirmPassw')
 
     if (not (User.objects.filter(username = username) or User.objects.filter(email = email))) and password == passw_confirm:
-      registerObj = Register()
-      registered = registerObj.registerSubmit(username, email, password)
+      userObj = UserController()
+      registered = userObj.createUser(username, email, password)
 
       if registered:
         return redirect('/login/')
@@ -85,8 +85,8 @@ def deleteAccount(request):
       check = authenticate(username = username, password = password)
 
       if check and (check == user_to_del):
-        deleteObj = Deletion()
-        deleted = deleteObj.deleteAcc(user_to_del)
+        userObj = UserController()
+        deleted = userObj.deleteUser(user_to_del)
 
         if deleted:
           messages.success(request, 'User successfully deleted.')
@@ -98,7 +98,9 @@ def deleteAccount(request):
 
 @login_required(login_url='/login/')
 def feedPage(request):
-  posts = Post.objects.all()
+  postObj = PostController()
+  posts = postObj.getAllPosts()
+  
   return render(request, 'feedtest.html', {'posts': posts})
 
 
@@ -113,9 +115,10 @@ def createPostSubmit(request):
     title = request.POST.get('title')
     body = request.POST.get('body')
 
-    try:
-      Post.objects.create(title = title, body = body, created_by = request.user)
-    except:
+    postObj = PostController()
+    posted = postObj.createPost(title, body, request)
+
+    if not posted:
       messages.error(request, 'Houve um erro ao fazer sua postagem.')
 
   return redirect('/feed/')

@@ -17,3 +17,6 @@ class Post(models.Model):
 
   class Meta:
     db_table = 'Post'
+
+  def getPostDate(self):
+    return self.date_created.strftime('%d/%m/%Y / %H:%M')
