@@ -193,3 +193,4 @@ class PostTests(LiveServerTestCase):
     posted = postObj.createPost('title', 'body', mock_user)
 
     assert posted == False
+    
