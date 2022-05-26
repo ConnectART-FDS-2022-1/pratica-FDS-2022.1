@@ -78,10 +78,12 @@ def deleteAccount(request):
     password = request.POST.get('password')
     passw_confirm = request.POST.get('confirmPassw')
 
+    logged_user = request.user
+
     if password == passw_confirm:
 
       userObj = UserController()
-      deleted = userObj.deleteUser(username, password, request)
+      deleted = userObj.deleteUser(username, password, logged_user)
 
       if deleted:
         messages.success(request, 'User successfully deleted.')
@@ -110,8 +112,10 @@ def createPostSubmit(request):
     title = request.POST.get('title')
     body = request.POST.get('body')
 
+    user = request.user
+
     postObj = PostController()
-    posted = postObj.createPost(title, body, request)
+    posted = postObj.createPost(title, body, user)
 
     if not posted:
       messages.error(request, 'Houve um erro ao fazer sua postagem.')
