@@ -10,6 +10,13 @@ from core.controller import UserController, PostController
 def index(request):
   return redirect('/login/')
 
+#testar
+def viewProfiles(request):
+  profiles = Profile.objects.all()
+  return render(request, 'profiles.html', { 
+    'profiles': profiles
+  })
+
 
 def loginPage(request):
   return render(request, 'logintest.html')
