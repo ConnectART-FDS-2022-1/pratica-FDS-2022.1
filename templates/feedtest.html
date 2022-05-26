@@ -19,16 +19,18 @@
 {% if posts|length < 1 %}
 <h4>No posts to show</h4>
 {% else %}
-
-{% for post in posts %}
-  <div style="margin-bottom: 50px;">
-    <p name="post-date">{{ post.getPostDate }}</p>
-    <p name="post-creator">{{ post.created_by.username }}</p>
-    <h3 name="post-title">{{ post.title }}</h3>
-    <div name="post-body">{{ post.body }}</div>
-  </div>
-
-{% endfor %}
+<div name="posts">
+  {% for post in posts %}
+  
+    <div style="margin-bottom: 50px;">
+      <p name="post-date">{{ post.getPostDate }}</p>
+      <p name="post-creator">{{ post.created_by.username }}</p>
+      <h3 name="post-title">{{ post.title }}</h3>
+      <div name="post-body">{{ post.body }}</div>
+    </div>
+  
+  {% endfor %}
+</div>
 
 {% endif %}
 
