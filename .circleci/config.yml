@@ -6,12 +6,6 @@ jobs:
     machine: true
     steps:
       - checkout
-      # - run:
-      #     name: install machine dependencies
-      #     command: |
-      #       sudo add-apt-repository ppa:deadsnakes/ppa
-      #       sudo apt install python3.9.12
-      #       pip3 install --upgrade pip wheel
       - run:
           name: install dependencies
           command: pip3 install -r requirements.txt
@@ -22,4 +16,8 @@ workflows:
   heroku_deploy:
     jobs:
       - test
+      - hold:
+        type: approval
+        requires: 
+          - test
       - heroku/deploy-via-git
