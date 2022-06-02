@@ -43,9 +43,8 @@ class UserController:
       return False
 
 
-  def deleteUser(self, username, password, req):
+  def deleteUser(self, username, password, logged_user):
     user_to_del = authenticate(username = username, password = password)
-    logged_user = req.user
 
     if user_to_del and (user_to_del == logged_user):
       try:
@@ -61,13 +60,14 @@ class UserController:
 
 class PostController:
 
-  def createPost(self, title, body, req):
+  def createPost(self, title, body, user):
     try:
-      Post.objects.create(title = title, body = body, created_by = req.user)
+      Post.objects.create(title = title, body = body, created_by = user)
       return True
 
     except:
       return False
+
 
   def getAllPosts(self):
     posts = Post.objects.all().order_by('-date_created')
