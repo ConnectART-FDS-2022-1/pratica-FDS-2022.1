@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
-  python: circleci/python@3.9.12
 
 jobs:
   test:
@@ -20,7 +19,7 @@ workflows:
   on_commit:
     jobs: 
       - test
-      
+
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git
