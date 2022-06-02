@@ -9,7 +9,8 @@ jobs:
       - run:
           name: install machine dependencies
           command: |
-            sudo apt-get install python3-pip python3-dev build-essential ruby-full
+            sudo add-apt-repository ppa:deadsnakes/ppa
+            sudo apt install python3.9.12
             pip3 install --upgrade pip wheel
       - run:
           name: install dependencies
