@@ -14,9 +14,8 @@ jobs:
           name: run tests
           command: python3 manage.py test
       - heroku/deploy-via-git
-      
+
 workflows:
   heroku_deploy:
     jobs:
       - CICD
-      # - heroku/deploy-via-git
