@@ -20,4 +20,3 @@ workflows:
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git
-
