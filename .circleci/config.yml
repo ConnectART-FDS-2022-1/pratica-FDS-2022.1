@@ -10,13 +10,13 @@ jobs:
           name: install machine dependencies
           command: |
             sudo apt-get install python3-pip python3-dev build-essential
-            pip install --upgrade pip
+            pip3 install --upgrade pip
       - run:
           name: install dependencies
-          command: pip install -r requirements.txt
+          command: pip3 install -r requirements.txt
       - run:
           name: run tests
-          command: python manage.py test
+          command: python3 manage.py test
 workflows:
   on_commit:
     jobs: 
