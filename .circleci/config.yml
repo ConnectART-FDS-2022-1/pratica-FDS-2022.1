@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
-
 jobs:
   test:
     docker:
@@ -14,12 +13,10 @@ jobs:
       - run:
           name: run tests
           command: python manage.py test
-
 workflows:
   on_commit:
     jobs: 
       - test
-
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git
