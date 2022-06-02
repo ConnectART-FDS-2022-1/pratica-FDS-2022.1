@@ -17,7 +17,6 @@ workflows:
     jobs:
       - test
       - hold:
-          type: approval
           requires: 
             - test
       - heroku/deploy-via-git
