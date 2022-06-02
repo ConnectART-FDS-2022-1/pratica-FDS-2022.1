@@ -18,9 +18,7 @@ jobs:
           name: run tests
           command: python3 manage.py test
 workflows:
-  on_commit:
-    jobs: 
-      - test
   heroku_deploy:
     jobs:
+      - test
       - heroku/deploy-via-git
