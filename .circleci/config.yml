@@ -20,7 +20,8 @@ workflows:
   on_commit:
     jobs: 
       - test
-      heroku_deploy:
-        jobs:
-          - heroku/deploy-via-git
+      
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git
 
