@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
 jobs:
-  test:
+  CI/CD:
     machine: true
     steps:
       - checkout
@@ -12,11 +12,11 @@ jobs:
       - run:
           name: run tests
           command: python3 manage.py test
+      - run:
+          name: deploy to heroku
+          - heroku/deploy-via-git
 workflows:
   heroku_deploy:
     jobs:
-      - test
-      - hold:
-          requires: 
-            - test
-      - heroku/deploy-via-git
+      - CI/CD
+      # - heroku/deploy-via-git
