@@ -4,6 +4,10 @@ orbs:
 jobs:
   test:
     machine: true
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9.12]
     steps:
       - checkout
       - run:
