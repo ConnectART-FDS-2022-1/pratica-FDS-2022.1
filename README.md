@@ -36,25 +36,25 @@ ConnectART grew out of a need for students to connect with each other, matching 
 The entirety of this project is developed using Python with its Django framework for web development. In order to avoid conflicting dependencies with other Python projects in your machine, it's a good ideia to activate a Python Virtual Environment (venv). The project is standardized to use Python 3.9.12, but if you have at least 3.9, it should be no problem.
 The following step should be taken within the root directory of the project once you ``git clone`` it into your machine.
 
-To activate a venv on Linux:
-``python3 -m venv venv``
-Then run the script located at
-``./venv/bin/activate``
+To activate a venv on Linux:<br>
+``python3 -m venv venv``<br>
+Then run the script located at<br>
+``./venv/bin/activate``<br>
 
-To activate a venv on Windows (preferrably using PowerShell)
-``py -m venv venv``
-Then run the script located at
-``.\venv\Scripts\Activate.ps1``
+To activate a venv on Windows (preferrably using PowerShell) <br>
+``py -m venv venv``<br>
+Then run the script located at<br>
+``.\venv\Scripts\Activate.ps1``<br>
 
-Once it is activated, you can type:
-``pip install -r requirements.txt``
-so pip can install every required package for the project.
+Once it is activated, you can type:<br>
+``pip install -r requirements.txt``<br>
+so pip can install every required package for the project.<br>
 
-And finally, if all goes well, you can run the project by typing:
-Linux:
-``python3 manage.py runserver``
+And finally, if all goes well, you can run the project by typing:<br>
+Linux:<br>
+``python3 manage.py runserver``<br>
 
-Windows:
-``py manage.py runserver``
+Windows:<br>
+``py manage.py runserver``<br>
 
 And that's it. Any doubts about the structure and functioning of a Django project can be answered on their [Wiki](https://docs.djangoproject.com/en/4.0/).
